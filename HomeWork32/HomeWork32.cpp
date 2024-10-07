@@ -5,7 +5,11 @@
 
 using namespace std;
 
-void check(unsigned int key)
+bool check(string key) {
+	if (key.empty()) {
+		return false;
+	}
+}
 
 int main(int argc, const char* argv[]) {
 
@@ -17,7 +21,8 @@ int main(int argc, const char* argv[]) {
 	const string mode(argv[1]); // Режим работы
 	const string file_name(argv[2]); // Имя файла
 
-	unsigned int key; // Ключ-пароль для шифровки или расшифровки
+	//unsigned int key; Ключ-пароль для шифровки или расшифровки
+	string key;
 
 	if (mode != "encryption" && mode != "decryption") { // Проверка на некорректный ввод
 		cout << "Mode name error";
@@ -34,7 +39,7 @@ int main(int argc, const char* argv[]) {
 		cout << "Введите строку, которую хотите зашифровать: "; cin >> input_string;
 		cout << "Введите пароль для шифрования: "; cin >> key;
 		cout << "Введите пароль (целое число от 0 до 10^9 - 1): "; cin >> key;
-		srand(key); // Создаем зерно для создания случайных чисел
+		srand(stoi(key)); // Создаем зерно для создания случайных чисел
 		vector<char> symbols(input_string.size()); // Создаем массив длины введенной строки
 		for (int i = 0; i != input_string.size(); i++) {
 			symbols[i] = input_string[i];
