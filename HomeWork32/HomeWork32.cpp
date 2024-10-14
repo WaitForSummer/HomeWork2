@@ -2,6 +2,7 @@
 #include <vector>
 #include <string>
 #include <fstream> // Для работы с файлами
+#include <typeinfo>
 
 using namespace std;
 
@@ -11,8 +12,13 @@ void Encryption(string file_name) {
 	string key;
 
 	cout << "Enter psswd: "; cin >> key;
-	srand(stoi(key));
-	cout << stoi(key);
+	srand(static_cast<unsigned int>(stoi(key))); // Сделали зерно по паролю
+
+	if (!check(key)) {
+		cerr << "Error: Invalid key\n";
+	}
+
+	// cout << stoi(key) << " " << typeid(static_cast<unsigned int>(stoi(key))).name();
 }
 
 void Decryption(string file_name) {
@@ -26,6 +32,9 @@ void RShift() {}
 bool check(string key) {
 
 	if (key.empty()) {
+		return false;
+	}
+	if (static_cast<int>(key.size()) > 9) {
 		return false;
 	}
 }
@@ -49,7 +58,7 @@ int main(int argc, const char* argv[]) {
 	}
 
 	if (mode == "encryption") { // Шифрование
-		cout << "enc";
+		cout << "enc" << endl;
 		Encryption(file_name);
 	}
 	else if (mode == "decryption") {
